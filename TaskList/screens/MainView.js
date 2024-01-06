@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, {useContext} from 'react'
+import TaskListContext from '../context/TaskListContext'
 
 export default function MainView() {
+  const value = useContext(TaskListContext);
   return (
     <View>
-      <Text>MainView</Text>
+      <Text>MainView {value}</Text>
     </View>
   )
 }
