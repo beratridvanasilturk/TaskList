@@ -16,18 +16,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainView from './screens/MainView';
 import AddTaskView from './screens/AddTaskView';
+import { TaskListProvider } from './context/TaskListContext';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name = "Main" component={MainView} />
-        <Stack.Screen name = "AddTask" component={AddTaskView} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // provider'i data transferi için kullanıyoruz
+    <TaskListProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerTitle: "Task List App" }}>
+          <Stack.Screen name="Main" component={MainView} />
+          <Stack.Screen name="AddTask" component={AddTaskView} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </TaskListProvider>
   );
 }
 
