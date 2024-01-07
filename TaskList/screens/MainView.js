@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 import { Context } from '../context/TaskListContext';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default function MainView() {
-  const { state, addNewTask } = useContext(Context);
+  const { state, addNewTask, deleteTask } = useContext(Context);
   // Cekmek istedigimiz context'i burada useContext ile cekiyoruz.
   return (
     <View>
@@ -18,7 +18,11 @@ export default function MainView() {
           return (
             <View style={styles.row}>
               <Text style={styles.title}>{item.title}</Text>
-              <Icon name= "trash" size={24} color="black" />
+              <TouchableOpacity onPress={() => 
+               deleteTask(item.id)
+              }>
+                <Icon name="trash" size={24} color="black"/>
+              </TouchableOpacity>
             </View>
           );
         }}
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 20,
     paddingHorizontal: 10,
-    borderBottomWidth: 1, 
+    borderBottomWidth: 1,
     borderColor: 'gray',
   },
   title: {
