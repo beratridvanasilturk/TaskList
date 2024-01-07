@@ -14,6 +14,8 @@ import MainView from './screens/MainView';
 import AddTaskView from './screens/AddTaskView';
 import { Provider } from './context/TaskListContext';
 import DetailTaskView from './screens/DetailTaskView';
+import { Button } from 'react-native';
+import EditTaskView from './screens/EditTaskView';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -24,9 +26,32 @@ function App(): React.JSX.Element {
     <Provider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerTitle: "Task List App" }}>
-          <Stack.Screen name="Main" component={MainView} />
+          <Stack.Screen
+            name="Main"
+            component={MainView}
+            options={({ navigation }) => ({
+              // headerRight Swiftteki navigation bar right element butonu için kullanılıyor
+              headerRight: () => (
+                <Button
+                  title="Add"
+                  onPress={() => navigation?.navigate("AddTask")}
+                />
+              ),
+            })}
+          />
           <Stack.Screen name="AddTask" component={AddTaskView} />
-          <Stack.Screen name="DetailTask" component={DetailTaskView} />
+          <Stack.Screen name="DetailTask" component={DetailTaskView}
+          options={({ navigation }) => ({
+            // headerRight Swiftteki navigation bar right element butonu için kullanılıyor
+            headerRight: () => (
+              <Button
+                title="Edit"
+                onPress={() => navigation?.navigate("EditTaskView")}
+              />
+            ),
+          })}
+          />
+          <Stack.Screen name="EditTaskView" component={EditTaskView} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
