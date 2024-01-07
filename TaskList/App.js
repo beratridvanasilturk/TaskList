@@ -17,10 +17,11 @@ import DetailTaskView from './screens/DetailTaskView';
 import { Button } from 'react-native';
 import EditTaskView from './screens/EditTaskView';
 
-function App(): React.JSX.Element {
+export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   const Stack = createNativeStackNavigator();
+  
   return (
     // provider'i data transferi için kullanıyoruz
     <Provider>
@@ -41,21 +42,21 @@ function App(): React.JSX.Element {
           />
           <Stack.Screen name="AddTask" component={AddTaskView} />
           <Stack.Screen name="DetailTask" component={DetailTaskView}
-          options={({ navigation }) => ({
-            // headerRight Swiftteki navigation bar right element butonu için kullanılıyor
-            headerRight: () => (
-              <Button
-                title="Edit"
-                onPress={() => navigation?.navigate("EditTaskView")}
-              />
-            ),
-          })}
+            options={({ navigation, route }) => ({
+              // headerRight Swiftteki navigation bar right element butonu için kullanılıyor
+              headerRight: () => (
+                <Button
+                  title="Edit"
+                  // Bu ekrandan id'yi alıyoruz ki o cell icin edit sayfasına gidebilelim
+                  onPress={() => navigation.navigate('EditTask', { id: route.params.id })}
+                />
+              ),
+            })}
           />
-          <Stack.Screen name="EditTaskView" component={EditTaskView} />
+          <Stack.Screen name="EditTask" component={EditTaskView} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
 }
 
-export default App;

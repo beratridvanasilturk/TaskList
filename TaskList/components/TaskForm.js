@@ -2,9 +2,10 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import React, { useState } from 'react'
 
 // icerde onTappedSaveButton props'u oi input alanina veriyoruz.
-export default function TaskForm({ onTappedSaveButton }) {
-    const [title, setTitle] = useState('');
-    const [content, setDetail] = useState('');
+// ayni secilde initialValues props'u da veriyoruz. Bunlari edit ekraninda textInputlari doldurmak icin kullanacagiz.
+export default function TaskForm({ onTappedSaveButton, initialValues, isEditMode }) {
+    const [title, setTitle] = useState(initialValues ? initialValues.title : '');
+    const [content, setDetail] = useState(initialValues ? initialValues.content : '');
     return (
         <View style={styles.main}>
             <Text style={styles.label}>Title:</Text>
@@ -17,14 +18,22 @@ export default function TaskForm({ onTappedSaveButton }) {
             <TextInput
                 style={styles.textInput}
                 value={content}
-                onChangeText={(content) => setDetail(content)}
+                onChangeText={(text) => setDetail(text)}
             />
             <View style={styles.buttonView}>
-                <Button
-                    title="Save Task"
-                    color={'white'}
-                    // onTappedSaveButton props    
-                    onPress={() => onTappedSaveButton(title, content)} />
+                {isEditMode ? (
+                    <Button
+                        title="Update Task"
+                        color={'white'}
+                        // onTappedSaveButton props    
+                        onPress={() => onTappedSaveButton(title, content)} />
+                ) : (
+                    <Button
+                        title="Save Task"
+                        color={'white'}
+                        // onTappedSaveButton props    
+                        onPress={() => onTappedSaveButton(title, content)} />
+                )}
             </View>
         </View>
     )

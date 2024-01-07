@@ -13,6 +13,17 @@ const taskReducer = (state, action) => {
             },
             ];
 
+            case 'EDIT_TASK':
+                return state.map((task) => {
+                    // id'ler esitse yeni editlenen task'i dondururuz.
+                    if (task.id === action.payload.id) {
+                        return action.payload;
+                    } else {
+                        // ayni kalmaya devam eder.
+                        return task;
+                    }
+                }); 
+                
         case 'DELETE_TASK':
             // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
             return state.filter((task) => task.id !== action.payload);
@@ -37,6 +48,21 @@ const addNewTask = (dispatch) => {
     };
 };
 
+
+const editTask = (dispatch) => {
+    return (id, title, content, callBackToMain) => {
+        // useReducer kullanimi
+        // objenin tipine gore islem yapar.
+        dispatch({ type: 'EDIT_TASK', payload: { id, title, content } });
+        // butona basildiktan sonra main view'e otomatik doner.
+        if (callBackToMain) {
+            callBackToMain();
+        }
+        // useState kullanimi 
+        // setSampleArray([...sampleArray, {title: 'newTask'}]);
+    };
+};
+
 // main view'deki delete islemini id parametresine gore yapariz.
 const deleteTask = (dispatch) => {
     return (id) => {
@@ -46,6 +72,6 @@ const deleteTask = (dispatch) => {
 }
 export const { Context, Provider } = createDataContext(
     taskReducer,
-    { addNewTask, deleteTask },
+    { addNewTask, deleteTask, editTask },
     []
 );

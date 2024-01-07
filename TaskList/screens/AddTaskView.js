@@ -8,6 +8,7 @@ export default function AddTaskView( { navigation } ) {
   const { addNewTask } = useContext(Context);
   return (
     <TaskForm
+    isEditMode={false}
       onTappedSaveButton={(title, content) => {
         // title ve content bu ekrandan addnewtask fonksiyonuna gonderiliyor.
         addNewTask(title, content, () =>
