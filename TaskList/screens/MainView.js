@@ -1,18 +1,17 @@
-import { Text, View, FlatList, Button } from 'react-native'
-import React, { useContext } from 'react'
-import TaskListContext from '../context/TaskListContext'
+import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import React, { useContext } from 'react';
+import { Context } from '../context/TaskListContext';
 
 export default function MainView() {
-  const { data, addNewTask } = useContext(TaskListContext);
+  const { state, addNewTask } = useContext(Context);
   // Cekmek istedigimiz context'i burada useContext ile cekiyoruz.
-  // const sampleArray = useContext(TaskListContext);
   return (
     <View>
       <Text>MainView</Text>
       <Button title="Add New Task" onPress={addNewTask}/>
       <FlatList
-        data={data}
-        keyExtractor={propInArray => propInArray.title}
+        data={state}
+        keyExtractor={ (propInArray) => propInArray.title}
         /* renderItem icerisindeki item SwiftUI'daki forEach icerisindeki her bir dongu elemanini ifade eder */
         renderItem={({ item }) => {
           return <Text>{item.title}</Text>;
@@ -21,3 +20,5 @@ export default function MainView() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({});
