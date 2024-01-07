@@ -12,12 +12,12 @@ export default function MainView() {
       <Button title="Add New Task" onPress={addNewTask} />
       <FlatList
         data={state}
-        keyExtractor={(propInArray) => propInArray.title}
+        keyExtractor={(propInArray) => propInArray.id}
         /* renderItem icerisindeki item SwiftUI'daki forEach icerisindeki her bir dongu elemanini ifade eder */
         renderItem={({ item }) => {
           return (
-            <View>
-              <Text>{item.title}</Text>
+            <View style={styles.row}>
+              <Text style={styles.title}>{item.title}</Text>
               <Icon name= "trash" size={24} color="black" />
             </View>
           );
@@ -27,4 +27,17 @@ export default function MainView() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderBottomWidth: 1, 
+    borderColor: 'gray',
+  },
+  title: {
+    fontSize: 18,
+  },
+
+});

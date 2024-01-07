@@ -5,7 +5,10 @@ const taskReducer = (state, action) => {
     // action icerisindeki type'a gore islem yapar.
     switch (action.type) {
         case 'ADD_TASK':
-            return [...state, { title: 'NEW TASK ADDED' }];
+            return [...state, { 
+                // id olarak random bir sayi olusturulur.
+                id: Math.floor(Math.random() * 99999) ,
+                title: 'New Task Added ' }];
         default:
             return state;
     }
