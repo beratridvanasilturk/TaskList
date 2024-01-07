@@ -13,6 +13,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainView from './screens/MainView';
 import AddTaskView from './screens/AddTaskView';
 import { Provider } from './context/TaskListContext';
+import DetailTaskView from './screens/DetailTaskView';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -25,6 +26,7 @@ function App(): React.JSX.Element {
         <Stack.Navigator screenOptions={{ headerTitle: "Task List App" }}>
           <Stack.Screen name="Main" component={MainView} />
           <Stack.Screen name="AddTask" component={AddTaskView} />
+          <Stack.Screen name="DetailTask" component={DetailTaskView} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

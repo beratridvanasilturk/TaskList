@@ -8,7 +8,7 @@ const taskReducer = (state, action) => {
             return [...state, { 
                 // id olarak random bir sayi olusturulur.
                 id: Math.floor(Math.random() * 99999) ,
-                title: 'New Task Added ' }];
+                title: 'New Task Added' }];
 
         case 'DELETE_TASK':
             // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
