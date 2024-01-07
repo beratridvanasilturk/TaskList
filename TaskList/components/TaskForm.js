@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import React, { useState } from 'react'
 
-export default function TaskForm({onTapped}) {
+// icerde onTappedSaveButton props'u oi input alanina veriyoruz.
+export default function TaskForm({ onTappedSaveButton }) {
     const [title, setTitle] = useState('');
-    const [detail, setDetail] = useState('');
+    const [content, setDetail] = useState('');
     return (
         <View style={styles.main}>
             <Text style={styles.label}>Title:</Text>
@@ -15,11 +16,15 @@ export default function TaskForm({onTapped}) {
             <Text style={styles.label}>Detail:</Text>
             <TextInput
                 style={styles.textInput}
-                value={detail}
-                onChangeText={(text) => setDetail(text)}
+                value={content}
+                onChangeText={(content) => setDetail(content)}
             />
             <View style={styles.buttonView}>
-                <Button title="Save Task" color={'white'} onPress={() => onTapped(title)}/>
+                <Button
+                    title="Save Task"
+                    color={'white'}
+                    // onTappedSaveButton props    
+                    onPress={() => onTappedSaveButton(title, content)} />
             </View>
         </View>
     )

@@ -8,7 +8,7 @@ export default function MainView({ navigation }) {
   const { state, addNewTask, deleteTask } = useContext(Context);
   return (
     <View>
-      <Button title="Add New Task" onPress={addNewTask} />
+      
       <FlatList
         data={state}
         keyExtractor={(propInArray) => propInArray.id}

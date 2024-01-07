@@ -1,21 +1,22 @@
 import React, { useState, useReducer } from 'react';
 import createDataContext from './createDataContext';
-import { act } from 'react-test-renderer';
 
 const taskReducer = (state, action) => {
     // action icerisindeki type'a gore islem yapar.
     switch (action.type) {
         case 'ADD_TASK':
-            return [...state, { 
+            return [...state, {
                 // id olarak random bir sayi olusturulur.
-                id: Math.floor(Math.random() * 99999) ,
+                id: Math.floor(Math.random() * 99999),
                 title: action.payload.title,
-                content: action.payload.content }];
+                content: action.payload.content,
+            },
+            ];
 
         case 'DELETE_TASK':
             // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
             return state.filter((task) => task.id !== action.payload);
-                             
+
         default:
             return state;
     }
@@ -23,12 +24,13 @@ const taskReducer = (state, action) => {
 
 
 const addNewTask = (dispatch) => {
-    return (title, content, callBackMain ) => {
+    return (title, content, callBackToMain) => {
         // useReducer kullanimi
         // objenin tipine gore islem yapar.
         dispatch({ type: 'ADD_TASK', payload: { title, content } });
-        if (callBackMain) {
-            callBackMain();
+        // butona basildiktan sonra main view'e otomatik doner.
+        if (callBackToMain) {
+            callBackToMain();
         }
         // useState kullanimi 
         // setSampleArray([...sampleArray, {title: 'newTask'}]);
@@ -44,5 +46,6 @@ const deleteTask = (dispatch) => {
 }
 export const { Context, Provider } = createDataContext(
     taskReducer,
-    { addNewTask , deleteTask }, []
+    { addNewTask, deleteTask },
+    []
 );
