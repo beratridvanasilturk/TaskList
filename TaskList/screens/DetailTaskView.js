@@ -15,6 +15,7 @@ export default function DetailTaskView( { route }) {
   return (
     <View>
       <Text>{task.title}</Text>
+      <Text>{task.content}</Text>
     </View>
   )
 }

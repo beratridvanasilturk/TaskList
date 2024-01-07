@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import createDataContext from './createDataContext';
+import { act } from 'react-test-renderer';
 
 const taskReducer = (state, action) => {
     // action icerisindeki type'a gore islem yapar.
@@ -8,7 +9,8 @@ const taskReducer = (state, action) => {
             return [...state, { 
                 // id olarak random bir sayi olusturulur.
                 id: Math.floor(Math.random() * 99999) ,
-                title: 'New Task Added' }];
+                title: action.payload.title,
+                content: action.payload.content }];
 
         case 'DELETE_TASK':
             // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
@@ -21,10 +23,13 @@ const taskReducer = (state, action) => {
 
 
 const addNewTask = (dispatch) => {
-    return () => {
+    return (title, content, callBackMain ) => {
         // useReducer kullanimi
         // objenin tipine gore islem yapar.
-        dispatch({ type: 'ADD_TASK' });
+        dispatch({ type: 'ADD_TASK', payload: { title, content } });
+        if (callBackMain) {
+            callBackMain();
+        }
         // useState kullanimi 
         // setSampleArray([...sampleArray, {title: 'newTask'}]);
     };
