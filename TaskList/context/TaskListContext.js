@@ -1,6 +1,8 @@
 import React, { useState, useReducer } from 'react';
 import createDataContext from './createDataContext';
+import jsonServer from '../api/jsonServer';
 
+// reducer
 const taskReducer = (state, action) => {
     // action icerisindeki type'a gore islem yapar.
     switch (action.type) {
@@ -13,17 +15,22 @@ const taskReducer = (state, action) => {
             },
             ];
 
-            case 'EDIT_TASK':
-                return state.map((task) => {
-                    // id'ler esitse yeni editlenen task'i dondururuz.
-                    if (task.id === action.payload.id) {
-                        return action.payload;
-                    } else {
-                        // ayni kalmaya devam eder.
-                        return task;
-                    }
-                }); 
-                
+        case 'EDIT_TASK':
+            return state.map((task) => {
+                // id'ler esitse yeni editlenen task'i dondururuz.
+                if (task.id === action.payload.id) {
+                    return action.payload;
+                } else {
+                    // ayni kalmaya devam eder.
+                    return task;
+                }
+            });
+
+
+        case 'GET_TASKS':
+            return action.payload;
+
+
         case 'DELETE_TASK':
             // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
             return state.filter((task) => task.id !== action.payload);
@@ -63,6 +70,14 @@ const editTask = (dispatch) => {
     };
 };
 
+const getTasks = (dispatch) => {
+    return async () => {
+        // jsonserver ile istek attik, get keyword'u axios'dan gelir.
+        const response = await jsonServer.get('/tasks');
+        dispatch({ type: 'GET_TASKS', payload: response.data });
+    };
+};
+
 // main view'deki delete islemini id parametresine gore yapariz.
 const deleteTask = (dispatch) => {
     return (id) => {
@@ -72,6 +87,6 @@ const deleteTask = (dispatch) => {
 }
 export const { Context, Provider } = createDataContext(
     taskReducer,
-    { addNewTask, deleteTask, editTask },
+    { addNewTask, deleteTask, editTask, getTasks },
     []
 );

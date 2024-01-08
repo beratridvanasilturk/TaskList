@@ -1,11 +1,19 @@
 import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity } from 'react-native';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Context } from '../context/TaskListContext';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default function MainView({ navigation }) {
-  // Cekmek istedigimiz context'i burada useContext ile cekiyoruz.
-  const { state, addNewTask, deleteTask } = useContext(Context);
+  // Cekmek istedigimiz contextler'i burada useContext ile cekiyoruz.
+  const { state, addNewTask, deleteTask, getTasks } = useContext(Context);
+  // useEffect ile getTask'i cagiriyoruz. [] olmadan onAppear gibi davranir
+  // [] bize DidAppear ozelligi verir. Yani ekran ilk acildiginda 1 defa tetiklenir
+  // getTasks ile backend'de bulunan tum tasklari cekiyoruz, didAppear'da ui'a basiyoruz.
+  useEffect(() => {
+    getTasks();
+  }
+    , []);
+
   return (
     <View>
       
