@@ -6,14 +6,15 @@ import jsonServer from '../api/jsonServer';
 const taskReducer = (state, action) => {
     // action icerisindeki type'a gore islem yapar.
     switch (action.type) {
-        case 'ADD_TASK':
-            return [...state, {
-                // id olarak random bir sayi olusturulur.
-                id: Math.floor(Math.random() * 99999),
-                title: action.payload.title,
-                content: action.payload.content,
-            },
-            ];
+        // post request ile jsonserver'a gonderdigimiz icin artik bu kisim kullanilmayacak.
+        // case 'ADD_TASK':
+        //     return [...state, {
+        //         // id olarak random bir sayi olusturulur.
+        //         id: Math.floor(Math.random() * 99999),
+        //         title: action.payload.title,
+        //         content: action.payload.content,
+        //     },
+        //     ];
 
         case 'EDIT_TASK':
             return state.map((task) => {
@@ -42,10 +43,14 @@ const taskReducer = (state, action) => {
 
 
 const addNewTask = (dispatch) => {
-    return (title, content, callBackToMain) => {
+    return async (title, content, callBackToMain) => {
         // useReducer kullanimi
         // objenin tipine gore islem yapar.
-        dispatch({ type: 'ADD_TASK', payload: { title, content } });
+        // dispatch({ type: 'ADD_TASK', payload: { title, content } });
+
+        // jsonserver'a post request atiyoruz.
+        await jsonServer.post('/tasks', { title, content });
+
         // butona basildiktan sonra main view'e otomatik doner.
         if (callBackToMain) {
             callBackToMain();

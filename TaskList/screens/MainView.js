@@ -11,7 +11,16 @@ export default function MainView({ navigation }) {
   // getTasks ile backend'de bulunan tum tasklari cekiyoruz, didAppear'da ui'a basiyoruz.
   useEffect(() => {
     getTasks();
+
+    // post request sonrasi sayfadaki taskleri yenilemek, ui'i guncellemek icin kullanilir.
+    const listener = navigation.addListener('focus', () => {
+      getTasks();
+    });
+    return () => {
+      listener.remove();
+    };
   }
+
     , []);
 
   return (
