@@ -11,7 +11,6 @@ export default function MainView({ navigation }) {
   // getTasks ile backend'de bulunan tum tasklari cekiyoruz, didAppear'da ui'a basiyoruz.
   useEffect(() => {
     getTasks();
-
     // post request sonrasi sayfadaki taskleri yenilemek, ui'i guncellemek icin kullanilir.
     const listener = navigation.addListener('focus', () => {
       getTasks();
@@ -20,12 +19,10 @@ export default function MainView({ navigation }) {
       listener.remove();
     };
   }
-
     , []);
 
   return (
     <View>
-      
       <FlatList
         data={state}
         keyExtractor={(propInArray) => propInArray.id}
@@ -34,7 +31,7 @@ export default function MainView({ navigation }) {
           return (
             <TouchableOpacity onPress={() =>
               navigation.navigate('DetailTask', { id: item.id })
-            }> 
+            }>
               <View style={styles.row}>
                 <Text style={styles.title}>{item.title}</Text>
                 <TouchableOpacity onPress={() =>
@@ -63,5 +60,4 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
   },
-
 });

@@ -2,7 +2,7 @@ import React, { useState, useReducer } from 'react';
 import createDataContext from './createDataContext';
 import jsonServer from '../api/jsonServer';
 
-// reducer
+// reducer, action objesini alir ve state'i update eder.
 const taskReducer = (state, action) => {
     // action icerisindeki type'a gore islem yapar.
     switch (action.type) {
@@ -15,7 +15,6 @@ const taskReducer = (state, action) => {
         //         content: action.payload.content,
         //     },
         //     ];
-
         case 'EDIT_TASK':
             return state.map((task) => {
                 // id'ler esitse yeni editlenen task'i dondururuz.
@@ -26,16 +25,12 @@ const taskReducer = (state, action) => {
                     return task;
                 }
             });
-
-
         case 'GET_TASKS':
             return action.payload;
-
         // delete request ile jsonserver'a gonderdigimiz icin artik bu kisim kullanilmayacak.
         case 'DELETE_TASK':
-        //     // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
+            //     // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
             return state.filter((task) => task.id !== action.payload);
-
         default:
             return state;
     }
@@ -59,7 +54,6 @@ const addNewTask = (dispatch) => {
         // setSampleArray([...sampleArray, {title: 'newTask'}]);
     };
 };
-
 
 const editTask = (dispatch) => {
     return (id, title, content, callBackToMain) => {
@@ -93,7 +87,6 @@ const deleteTask = (dispatch) => {
         await jsonServer.delete(`/tasks/${id}`);
         // useReduser'de id'i payload ile yollariz (ui'i update islemi))
         dispatch({ type: 'DELETE_TASK', payload: id });
-
     };
 }
 export const { Context, Provider } = createDataContext(

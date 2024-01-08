@@ -1,0 +1,9 @@
+// https://www.npmjs.com/package/json-server "db" icin gerekli guncel komutu bu npm sitesinden aldim 
+// ve db.json dosyasini kendim olusturdum, terminal ile olusturamadim
+
+// Hatirlatma: Backend'den data cekerken 8012 hatasi alirsan medium'daki makaleme bak
+
+// # TODO:
+// terminalde ngrok http 3000 ile ngrok serverini acip guncellenen url'i jsonServer'deki url'ye yaziyoruz.
+// backend projesini vscode ile acip terminalinde npm run db komutunu calistiriyoruz.
+// daha sonra projemize donup runliyoruz.

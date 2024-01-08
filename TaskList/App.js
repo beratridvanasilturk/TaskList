@@ -4,10 +4,14 @@
  *
  * @format
  */
+
+// # TODO:
+// terminalde ngrok http 3000 ile ngrok serverini acip guncellenen url'i jsonServer'a yaziyoruz.
+// bir ust dosyadaki backend projesini vscode ile acip terminalinde de npm run db komutunu calistiriyoruz.
+// daha sonra projemize donup runliyoruz.
+
 import React from 'react';
-import {
-  useColorScheme,
-} from 'react-native';
+import { useColorScheme } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainView from './screens/MainView';
@@ -18,10 +22,7 @@ import { Button } from 'react-native';
 import EditTaskView from './screens/EditTaskView';
 
 export default function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   const Stack = createNativeStackNavigator();
-  
   return (
     // provider'i data transferi için kullanıyoruz
     <Provider>
@@ -31,7 +32,7 @@ export default function App() {
             name="Main"
             component={MainView}
             options={({ navigation }) => ({
-              // headerRight Swiftteki navigation bar right element butonu için kullanılıyor
+              // headerRight Swiftteki navigation right bar element butonu için kullanılıyor
               headerRight: () => (
                 <Button
                   title="Add"

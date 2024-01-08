@@ -1,24 +1,9 @@
 {
   "tasks": [
     {
-      "title": "You can add your tasks",
-      "content": "and Descriptions",
-      "id": 2
-    },
-    {
-      "title": "Task 1",
-      "content": "Description 1",
-      "id": 3
-    },
-    {
-      "title": "1234555",
-      "content": "44555",
-      "id": "ee95"
-    },
-    {
-      "id": "838d",
-      "title": "1111",
-      "content": "111"
+      "title": "Go to shopping",
+      "content": "some vegetables and 4 kg orange + 2 kg banana + 6 pc kiwi",
+      "id": "875a"
     }
   ]
 }

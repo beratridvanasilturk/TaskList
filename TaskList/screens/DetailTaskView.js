@@ -15,8 +15,8 @@ export default function DetailTaskView({ route }) {
     return (
         <View style={styles.mainView}>
             <View style={styles.container}>
-                <Text  style={styles.text}>Title:</Text>
-                <Text  style={styles.text2}>{task.title}</Text>
+                <Text style={styles.text}>Title:</Text>
+                <Text style={styles.text2}>{task.title}</Text>
             </View>
             <View style={styles.container}>
                 <Text style={styles.text}>Content:</Text>
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     mainView: {
         flex: 1,
         marginTop: 10,
-
     },
     container: {
         borderWidth: 0.3,
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
     },
-    text : {
+    text: {
         fontSize: 20,
     },
     text2: {
