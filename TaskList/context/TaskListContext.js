@@ -31,9 +31,9 @@ const taskReducer = (state, action) => {
         case 'GET_TASKS':
             return action.payload;
 
-
+        // delete request ile jsonserver'a gonderdigimiz icin artik bu kisim kullanilmayacak.
         case 'DELETE_TASK':
-            // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
+        //     // payload icerisindeki action'a task id esit degilse bunlari alir yeni bir array'e atariz, yani state'i  filtreleriz.
             return state.filter((task) => task.id !== action.payload);
 
         default:
@@ -48,7 +48,7 @@ const addNewTask = (dispatch) => {
         // objenin tipine gore islem yapar.
         // dispatch({ type: 'ADD_TASK', payload: { title, content } });
 
-        // jsonserver'a post request atiyoruz.
+        // jsonserver'a post request atiyoruz. (backend'i update islemi)
         await jsonServer.post('/tasks', { title, content });
 
         // butona basildiktan sonra main view'e otomatik doner.
@@ -63,8 +63,11 @@ const addNewTask = (dispatch) => {
 
 const editTask = (dispatch) => {
     return (id, title, content, callBackToMain) => {
+        // jsonserver'a put request atiyoruz. (backend'i update islemi)
+        jsonServer.put(`/tasks/${id}`, { title, content });
+
         // useReducer kullanimi
-        // objenin tipine gore islem yapar.
+        // objenin tipine gore islem yapar. (ui'i update islemi))
         dispatch({ type: 'EDIT_TASK', payload: { id, title, content } });
         // butona basildiktan sonra main view'e otomatik doner.
         if (callBackToMain) {
@@ -85,9 +88,12 @@ const getTasks = (dispatch) => {
 
 // main view'deki delete islemini id parametresine gore yapariz.
 const deleteTask = (dispatch) => {
-    return (id) => {
-        // useReduser'de id'i payload ile yollariz
+    return async (id) => {
+        // jsonserver'a delete request atiyoruz. (backend'i update islemi)
+        await jsonServer.delete(`/tasks/${id}`);
+        // useReduser'de id'i payload ile yollariz (ui'i update islemi))
         dispatch({ type: 'DELETE_TASK', payload: id });
+
     };
 }
 export const { Context, Provider } = createDataContext(
